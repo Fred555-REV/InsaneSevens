@@ -5,7 +5,7 @@ import com.company.Color;
 import java.util.List;
 
 public class Card {
-    public static final List<String> ranks = List.of(
+    public static List<String> ranks = List.of(
             "A",
             "2",
             "3",
@@ -20,7 +20,7 @@ public class Card {
             "Q",
             "K"
     );
-    public static final List<String> suits = List.of(
+    public static List<String> suits = List.of(
             "C",
             "D",
             "H",
