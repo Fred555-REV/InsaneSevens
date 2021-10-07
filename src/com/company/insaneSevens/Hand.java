@@ -33,6 +33,9 @@ public class Hand {
             if (selection == 0) {
                 break;
             }
+            if(cards.get(selection - 1).rank.equals("7")){
+                break;
+            }
             if (cards.get(selection - 1).suit.equals(activeCard.suit) || cards.get(selection - 1).rank.equals(activeCard.rank)) {
                 break;
             }
