@@ -44,13 +44,12 @@ public class InsaneSevens {
 
     public void playGame() {
         setup();
-        while (round()) {
-            setDeck();
-        }
+        while (round());
         determineWinner();
     }
 
     public boolean round() {
+        setDeck();
         draw();
         while (turn(activeHand())) {
             passTurn();
