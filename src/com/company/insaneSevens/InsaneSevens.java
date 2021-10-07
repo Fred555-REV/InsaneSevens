@@ -19,12 +19,7 @@ public class InsaneSevens {
 
     public void setup() {
         addPlayers();
-        setDeck();
-    }
-
-    private void setDeck() {
         deck = new StandardDeck();
-        deck.shuffle();
         activeCard = deck.deal();
     }
 

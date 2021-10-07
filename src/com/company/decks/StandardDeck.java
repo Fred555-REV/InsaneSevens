@@ -9,9 +9,7 @@ import java.util.List;
 public class StandardDeck implements DeckI {
     List<Card> cards = new ArrayList<>();
 
-    public StandardDeck() {
-        addCards();
-    }
+    public StandardDeck() {}
 
     private void addCards() {
         for (String suit : Card.suits) {
@@ -23,7 +21,11 @@ public class StandardDeck implements DeckI {
 
     @Override
     public Card deal() {
-        return cards.remove(cards.size()-1);
+        if (cards.size() == 0) {
+            addCards();
+            shuffle();
+        }
+        return cards.remove(cards.size() - 1);
     }
 
     @Override
