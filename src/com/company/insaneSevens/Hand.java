@@ -58,14 +58,17 @@ public class Hand {
     }
 
     public void displayHand() {
-        System.out.println(Color.getColor(player) + player.getName() + ' ');
+        StringBuilder output = new StringBuilder();
+        output.append(Color.getColor(player)).append(player.getName()).append("\n");
         for (Card card : cards) {
-            System.out.print(card);
-            System.out.print(" | ");
+            output.append(card).append(" | ");
         }
-        System.out.println(Color.RESET);
+        output.append("\n");
+        output.append(Color.RESET);
+        System.out.println(output);
     }
-    private void displayCards(){
+
+    private void displayCards() {
         //TODO make a display card for better visuals
         StringBuilder output = new StringBuilder();
         StringBuilder Top = new StringBuilder();
