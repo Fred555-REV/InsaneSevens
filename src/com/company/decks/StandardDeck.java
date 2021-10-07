@@ -1,5 +1,7 @@
 package com.company.decks;
 
+import com.company.insaneSevens.Card;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

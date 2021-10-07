@@ -1,6 +1,6 @@
 package com.company.decks;
 
-import java.util.List;
+import com.company.insaneSevens.Card;
 
 public interface DeckI {
 

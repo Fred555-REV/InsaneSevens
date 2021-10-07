@@ -1,12 +1,7 @@
 package com.company.actors;
 
-import com.company.Color;
-import com.company.decks.Card;
+import com.company.Console;
 import com.company.insaneSevens.Actor;
-import com.company.insaneSevens.Hand;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Player implements Actor {
     String name;
@@ -34,9 +29,10 @@ public class Player implements Actor {
     }
 
     @Override
-    public int getAction(String activeSuit, String activeRank) {
+    public int getSelection(String activeSuit, String activeRank,int handSize) {
 
-        return 0;
+        return Console.getInt(0,handSize,
+                "Select card to play or enter 0 to draw","Invalid Selection");
     }
 
     private void displayAvailableActions(){
@@ -46,7 +42,7 @@ public class Player implements Actor {
 
 
     @Override
-    public void win() {
-
+    public void win(int points) {
+        score+=points;
     }
 }

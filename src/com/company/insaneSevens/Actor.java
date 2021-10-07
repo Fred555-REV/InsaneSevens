@@ -7,8 +7,8 @@ public interface Actor {
 
     String getColor();
 
-    int getAction(String suit, String rank); //return 0 for draw or the index+1 of card that you want to play
+    int getSelection(String suit, String rank, int handSize); //return 0 for draw or the index+1 of card that you want to play
 
-    void win();
+    void win(int points);
 
 }

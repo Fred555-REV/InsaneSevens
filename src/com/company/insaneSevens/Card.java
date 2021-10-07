@@ -1,4 +1,4 @@
-package com.company.decks;
+package com.company.insaneSevens;
 
 import com.company.Color;
 
@@ -35,7 +35,7 @@ public class Card {
 //        this.rank = rank;
 //        this.suit = suit;
 //    }
-protected Card(String rank, String suit) {
+public Card(String rank, String suit) {
     this.rank = rank;
     this.suit = suit;
     value = getValue(rank);
@@ -46,7 +46,7 @@ protected Card(String rank, String suit) {
 }
     private int getValue(String rank) {
         switch (rank) {
-            case "8":
+            case "7":
                 return 50;
             case "J":
             case "Q":
