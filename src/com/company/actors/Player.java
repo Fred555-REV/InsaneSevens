@@ -5,9 +5,9 @@ import com.company.Console;
 import com.company.insaneSevens.Actor;
 
 public class Player implements Actor {
-    String name;
-    String color;
-    int score;
+    private final String name;
+    private final String color;
+    private int score;
 
     public Player(String name, String color) {
         this.name = name;

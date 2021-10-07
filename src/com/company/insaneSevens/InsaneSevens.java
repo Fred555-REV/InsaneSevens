@@ -44,7 +44,6 @@ public class InsaneSevens {
     }
 
     public boolean round() {
-        setDeck();
         draw();
         while (turn(activeHand())) {
             passTurn();

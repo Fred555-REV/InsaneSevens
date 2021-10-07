@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hand {
-    Actor player;
-    List<Card> cards = new ArrayList<>();
+    private final Actor player;
+    private final List<Card> cards = new ArrayList<>();
 
     public Hand(Actor player) {
         this.player = player;
