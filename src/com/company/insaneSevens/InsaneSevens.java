@@ -19,6 +19,10 @@ public class InsaneSevens {
 
     public void setup() {
         addPlayers();
+        setDeck();
+    }
+
+    private void setDeck() {
         deck = new StandardDeck();
         deck.shuffle();
         activeCard = deck.deal();
@@ -38,12 +42,21 @@ public class InsaneSevens {
         return hands.get(turnCounter);
     }
 
-    public void startRound() {
+    public void playGame() {
+        setup();
+        while (round()) {
+            setDeck();
+        }
+        determineWinner();
+    }
+
+    public boolean round() {
         draw();
         while (turn(activeHand())) {
             passTurn();
         }
         endRound();
+        return Console.getInt(1, 2, "(1) Quit\t(2) Start next round", "Invalid Selection") != 1;
 
     }
 
@@ -91,11 +104,22 @@ public class InsaneSevens {
                 winner = hand;
             }
             points += hand.getHandValue();
+            hand.clear();
         }
         assert winner != null;
         winner.win(points);
-        System.out.printf("The winner is: %s\tpoints earned this round: %s\ttotal score: %s\n",
+        System.out.printf("The round winner is: %s\tpoints earned this round: %s\ttotal score: %s\n",
                 winner.getName(), points, winner.getScore());
+    }
+
+    private void determineWinner() {
+        Hand winner = hands.get(0);
+        for (Hand hand : hands) {
+            if (hand.getHandValue() > winner.getHandValue()) {
+                winner = hand;
+            }
+        }
+        System.out.printf("%s Wins with a total of %s points.", winner.getName(), winner.getScore());
     }
 
 }

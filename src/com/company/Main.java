@@ -5,10 +5,9 @@ import com.company.insaneSevens.InsaneSevens;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
-        InsaneSevens game = new InsaneSevens();
-        game.setup();
-        game.startRound();
+        // write your code here
+        InsaneSevens insaneSevens = new InsaneSevens();
+        insaneSevens.playGame();
     }
 }
 // Notes/Plan of Attack

@@ -1,5 +1,6 @@
 package com.company.actors;
 
+import com.company.Color;
 import com.company.Console;
 import com.company.insaneSevens.Actor;
 
@@ -20,7 +21,7 @@ public class Player implements Actor {
 
     @Override
     public String getName() {
-        return name;
+        return Color.getColor(color) + name;
     }
 
     @Override
@@ -29,20 +30,20 @@ public class Player implements Actor {
     }
 
     @Override
-    public int getSelection(String activeSuit, String activeRank,int handSize) {
+    public int getSelection(String activeSuit, String activeRank, int handSize) {
 
-        return Console.getInt(0,handSize,
-                "Select card to play or enter 0 to draw","Invalid Selection");
+        return Console.getInt(0, handSize,
+                Color.getColor(color) + "Select card to play or enter 0 to draw",
+                "Invalid Selection");
     }
 
-    private void displayAvailableActions(){
+    private void displayAvailableActions() {
 //        System.out.println("(0) Draw");
     }
 
 
-
     @Override
     public void win(int points) {
-        score+=points;
+        score += points;
     }
 }
