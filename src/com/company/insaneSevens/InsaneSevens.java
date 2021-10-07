@@ -11,6 +11,7 @@ import java.util.List;
 public class InsaneSevens {
     List<Hand> hands = new ArrayList<>();
     DeckI deck;
+    List<Card> discard = new ArrayList<>();
     Card activeCard;
     int turnCounter;
 
@@ -20,6 +21,7 @@ public class InsaneSevens {
     public void setup() {
         addPlayers();
         deck = new StandardDeck();
+        deck.shuffle();
         activeCard = deck.deal();
     }
 
@@ -66,6 +68,9 @@ public class InsaneSevens {
 
         int choice = activeHand.getSelection(activeCard);
         if (choice == 0) {
+            if(deck.size()==0){
+                deck.changeDeck(discard);
+            }
             activeHand.draw(deck.deal());
         } else {
             Card card = activeHand.takeCard(choice - 1);

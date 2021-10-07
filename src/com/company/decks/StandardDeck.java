@@ -7,9 +7,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class StandardDeck implements DeckI {
-    List<Card> cards = new ArrayList<>();
+    private List<Card> cards = new ArrayList<>();
 
-    public StandardDeck() {}
+    public StandardDeck() {
+        addCards();
+    }
 
     private void addCards() {
         for (String suit : Card.suits) {
@@ -20,11 +22,18 @@ public class StandardDeck implements DeckI {
     }
 
     @Override
+    public int size() {
+        return cards.size();
+    }
+
+    @Override
+    public void changeDeck(List<Card> discard){
+        cards.addAll(discard);
+        discard.clear();
+    }
+
+    @Override
     public Card deal() {
-        if (cards.size() == 0) {
-            addCards();
-            shuffle();
-        }
         return cards.remove(cards.size() - 1);
     }
 
