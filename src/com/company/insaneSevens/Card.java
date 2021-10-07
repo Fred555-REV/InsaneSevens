@@ -20,30 +20,38 @@ public class Card {
             "Q",
             "K"
     );
+    //    public static List<String> suits = List.of(
+//            "C",
+//            "D",
+//            "H",
+//            "S"
+//    );
     public static List<String> suits = List.of(
-            "C",
-            "D",
-            "H",
-            "S"
+            "\u2664",
+            "\u2665",
+            "\u2666",
+            "\u2667"
     );
     public final String name;
     public final String rank;
     public final String suit;
     public final String color;
     public final int value;
-//    protected Card(int rank, String suit) {
+
+    //    protected Card(int rank, String suit) {
 //        this.rank = rank;
 //        this.suit = suit;
 //    }
-public Card(String rank, String suit) {
-    this.rank = rank;
-    this.suit = suit;
-    value = getValue(rank);
-    color = getColor(suit);
-    name = String.format("%s%s of %s%s",
-            Color.getColor(color), rank, suit, Color.RESET);
+    public Card(String rank, String suit) {
+        this.rank = rank;
+        this.suit = suit;
+        value = getValue(rank);
+        color = getColor(suit);
+        name = String.format("%s%s of %s%s",
+                Color.getColor(color), rank, suit, Color.RESET);
 
-}
+    }
+
     private int getValue(String rank) {
         switch (rank) {
             case "7":
@@ -62,13 +70,20 @@ public Card(String rank, String suit) {
     private String getColor(String suit) {
         switch (suit) {
             case "C":
+            case "\u2664":
+                return "Green";
             case "S":
-                return "Black";
+            case "\u2665":
+                return "Yellow";
+//                return "Black";
             case "H":
-            case "D":
+            case "\u2666":
                 return "Red";
+            case "D":
+            case "\u2667":
             default:
-                return "White";
+                return "Blue";
+//                return "White";
         }
     }
 
