@@ -38,7 +38,7 @@ public class Card52 extends Card {
         super(rank, suit);
     }
 
-    public int getValue(String rank) {
+    protected int getValue(String rank) {
         switch (rank) {
             case "7":
                 return 50;
@@ -53,7 +53,7 @@ public class Card52 extends Card {
         }
     }
 
-    public String getColor(String suit) {
+    protected String getColor(String suit) {
         switch (suit) {
             case "C":
             case "\u2664":

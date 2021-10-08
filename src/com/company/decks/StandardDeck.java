@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class StandardDeck implements DeckI {
-    private List<Card52> card52s = new ArrayList<>();
+    private List<Card> card52s = new ArrayList<>();
 
     public StandardDeck() {
         addCards();
@@ -27,13 +27,13 @@ public class StandardDeck implements DeckI {
     }
 
     @Override
-    public void addDeck(List<Card52> discard){
+    public void addDeck(List<Card> discard){
         card52s.addAll(discard);
         discard.clear();
     }
 
     @Override
-    public Card52 deal() {
+    public Card deal() {
         return card52s.remove(card52s.size() - 1);
     }
 

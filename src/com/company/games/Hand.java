@@ -1,6 +1,7 @@
 package com.company.games;
 
 import com.company.Color;
+import com.company.decks.Card;
 import com.company.games.insaneSevens.Card52;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class Hand {
     private final Actor player;
-    private final List<Card52> card52s = new ArrayList<>();
+    private final List<Card> cards = new ArrayList<>();
 
     public Hand(Actor player) {
         this.player = player;
@@ -17,27 +18,27 @@ public class Hand {
 
     public int getHandValue() {
         int handValue = 0;
-        for (Card52 card52 : card52s) {
-            handValue += card52.value;
+        for (Card card : cards) {
+            handValue += card.value;
         }
         return handValue;
     }
 
-    public int getSelection(Card52 activeCard52) {
+    public int getSelection(Card activeCard) {
         int selection = -1;
 
         do {
             if (selection != -1) {
                 System.out.println("Invalid Card");
             }
-            selection = player.getSelection(activeCard52.suit, activeCard52.rank, card52s.size());
+            selection = player.getSelection(activeCard.suit, activeCard.rank, cards.size());
             if (selection == 0) {
                 break;
             }
-            if(card52s.get(selection - 1).rank.equals("7")){
+            if(cards.get(selection - 1).rank.equals("7")){
                 break;
             }
-            if (card52s.get(selection - 1).suit.equals(activeCard52.suit) || card52s.get(selection - 1).rank.equals(activeCard52.rank)) {
+            if (cards.get(selection - 1).suit.equals(activeCard.suit) || cards.get(selection - 1).rank.equals(activeCard.rank)) {
                 break;
             }
         } while (true);
@@ -45,8 +46,8 @@ public class Hand {
         return selection;
     }
 
-    public void draw(Card52 card52) {
-        card52s.add(card52);
+    public void draw(Card card) {
+        cards.add(card);
     }
 
     public String getName() {
@@ -57,15 +58,15 @@ public class Hand {
         return player.getScore();
     }
 
-    public Card52 takeCard(int index) {
-        return card52s.remove(index);
+    public Card takeCard(int index) {
+        return cards.remove(index);
     }
 
     public void displayHand() {
         StringBuilder output = new StringBuilder();
         output.append(Color.getColor(player)).append(player.getName()).append("\n");
-        for (Card52 card52 : card52s) {
-            output.append(card52).append(" | ");
+        for (Card card : cards) {
+            output.append(card).append(" | ");
         }
         output.append("\n");
         output.append(Color.RESET);
@@ -85,6 +86,6 @@ public class Hand {
     }
 
     public void clear() {
-        card52s.clear();
+        cards.clear();
     }
 }

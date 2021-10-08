@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface DeckI {
 
-    Card52 deal();
+    Card deal();
     int size();
-    void addDeck(List<Card52> discard);
+    void addDeck(List<Card> discard);
     void shuffle();
 }

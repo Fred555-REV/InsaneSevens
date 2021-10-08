@@ -6,7 +6,7 @@ import java.util.List;
 
 public class UnoCard extends Card {
     public static List<String> ranks = List.of(
-            "A",
+            "0",
             "2",
             "3",
             "4",
@@ -15,22 +15,33 @@ public class UnoCard extends Card {
             "7",
             "8",
             "9",
-            "10",
-            "J",
-            "Q",
-            "K"
+            "Re",
+            "Sk",
+            "Wi",
+            "+2",
+            "+4"
     );
+    public static List<String> suits = List.of(
+            "Blue",
+            "Red",
+            "Yellow",
+            "Green"
+    );
+
     public UnoCard(String rank, String suit) {
         super(rank, suit);
     }
 
     @Override
-    public int getValue(String rank) {
+    protected int getValue(String rank) {
         return 0;
     }
 
     @Override
-    public String getColor(String suit) {
-        return null;
+    protected String getColor(String suit) {
+        if (suit.equals("Wild")) {
+            return "Black";
+        }
+        return suit;
     }
 }

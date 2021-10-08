@@ -20,9 +20,9 @@ public abstract class Card {
 
     }
 
-    public abstract int getValue(String rank);
+    protected abstract int getValue(String rank);
 
-    public abstract String getColor(String suit);
+    protected abstract String getColor(String suit);
 
     public String toString() {
         return String.format("%s%s of %s%s\t",

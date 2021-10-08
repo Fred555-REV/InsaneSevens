@@ -2,6 +2,7 @@ package com.company.games.insaneSevens;
 
 import com.company.Console;
 import com.company.actors.Player;
+import com.company.decks.Card;
 import com.company.decks.DeckI;
 import com.company.decks.StandardDeck;
 import com.company.games.Hand;
@@ -12,8 +13,8 @@ import java.util.List;
 public class InsaneSevens {
     List<Hand> hands = new ArrayList<>();
     DeckI deck;
-    List<Card52> discard = new ArrayList<>();
-    Card52 activeCard52;
+    List<Card> discard = new ArrayList<>();
+    Card activeCard;
     int turnCounter;
 
     public InsaneSevens() {
@@ -75,19 +76,20 @@ public class InsaneSevens {
         int choice = activeHand.getSelection(discard.get(discard.size() - 1));
         if (choice == 0) {
             if (deck.size() == 0) {
-                Card52 activeCard52 = discard.remove(discard.size() - 1);
+                Card activeCard52 = discard.remove(discard.size() - 1);
                 deck.addDeck(discard);
                 discard.add(activeCard52);
             }
             activeHand.draw(deck.deal());
         } else {
-            Card52 card52 = activeHand.takeCard(choice - 1);
-            if (card52.rank.equals("7")) {
+            Card card = activeHand.takeCard(choice - 1);
+            if (card.rank.equals("7")) {
+                discard.remove(discard.size()-1);
                 discard.add(new Card52("7",
                         Card52.suits.get(
                                 Console.getInt(1, 4, "Select suit 1-4 " + Card52.suits, "Invalid Selection") - 1)));
             } else {
-                discard.add(card52);
+                discard.add(card);
             }
         }
         return activeHand.getHandValue() != 0;
