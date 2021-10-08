@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.insaneSevens.Actor;
+import com.company.games.Actor;
 
 import java.util.Locale;
 

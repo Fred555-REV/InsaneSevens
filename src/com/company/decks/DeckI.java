@@ -1,13 +1,13 @@
 package com.company.decks;
 
-import com.company.insaneSevens.Card;
+import com.company.games.insaneSevens.Card52;
 
 import java.util.List;
 
 public interface DeckI {
 
-    Card deal();
+    Card52 deal();
     int size();
-    void addDeck(List<Card> discard);
+    void addDeck(List<Card52> discard);
     void shuffle();
 }

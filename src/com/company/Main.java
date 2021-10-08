@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.insaneSevens.InsaneSevens;
+import com.company.games.insaneSevens.InsaneSevens;
 
 public class Main {
 

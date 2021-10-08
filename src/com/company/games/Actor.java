@@ -1,4 +1,4 @@
-package com.company.insaneSevens;
+package com.company.games;
 
 public interface Actor {
     int getScore();

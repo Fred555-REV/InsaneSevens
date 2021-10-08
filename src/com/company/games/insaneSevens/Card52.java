@@ -1,10 +1,11 @@
-package com.company.insaneSevens;
+package com.company.games.insaneSevens;
 
 import com.company.Color;
+import com.company.decks.Card;
 
 import java.util.List;
 
-public class Card {
+public class Card52 extends Card {
     public static List<String> ranks = List.of(
             "A",
             "2",
@@ -32,27 +33,12 @@ public class Card {
             "\u2666",
             "\u2667"
     );
-    public final String name;
-    public final String rank;
-    public final String suit;
-    public final String color;
-    public final int value;
 
-    //    protected Card(int rank, String suit) {
-//        this.rank = rank;
-//        this.suit = suit;
-//    }
-    public Card(String rank, String suit) {
-        this.rank = rank;
-        this.suit = suit;
-        value = getValue(rank);
-        color = getColor(suit);
-        name = String.format("%s%s of %s%s",
-                Color.getColor(color), rank, suit, Color.RESET);
-
+    public Card52(String rank, String suit) {
+        super(rank, suit);
     }
 
-    private int getValue(String rank) {
+    public int getValue(String rank) {
         switch (rank) {
             case "7":
                 return 50;
@@ -67,7 +53,7 @@ public class Card {
         }
     }
 
-    private String getColor(String suit) {
+    public String getColor(String suit) {
         switch (suit) {
             case "C":
             case "\u2664":

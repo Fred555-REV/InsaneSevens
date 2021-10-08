@@ -2,7 +2,10 @@ package com.company.actors;
 
 import com.company.Color;
 import com.company.Console;
-import com.company.insaneSevens.Actor;
+import com.company.decks.Card;
+import com.company.games.Actor;
+
+import java.util.List;
 
 public class Player implements Actor {
     private final String name;
