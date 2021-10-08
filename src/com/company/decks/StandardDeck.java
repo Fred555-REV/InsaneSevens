@@ -27,7 +27,7 @@ public class StandardDeck implements DeckI {
     }
 
     @Override
-    public void changeDeck(List<Card> discard){
+    public void addDeck(List<Card> discard){
         cards.addAll(discard);
         discard.clear();
     }

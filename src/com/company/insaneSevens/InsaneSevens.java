@@ -22,7 +22,6 @@ public class InsaneSevens {
         addPlayers();
         deck = new StandardDeck();
         deck.shuffle();
-        activeCard = deck.deal();
     }
 
     public void addPlayers() {
@@ -41,11 +40,16 @@ public class InsaneSevens {
 
     public void playGame() {
         setup();
-        while (round());
+        while (round()) ;
         determineWinner();
     }
 
     public boolean round() {
+        do {
+            deck.addDeck(discard);
+            discard.add(deck.deal());
+            deck.shuffle();
+        } while (discard.get(0).rank.equals("8"));
         draw();
         while (turn(activeHand())) {
             passTurn();
@@ -64,22 +68,22 @@ public class InsaneSevens {
 
     public boolean turn(Hand activeHand) {
         activeHand.displayHand();
-        System.out.printf("ActiveCard %s\n", activeCard);
+        System.out.printf("ActiveCard %s\n", discard.get(discard.size() - 1));
 
-        int choice = activeHand.getSelection(activeCard);
+        int choice = activeHand.getSelection(discard.get(discard.size() - 1));
         if (choice == 0) {
-            if(deck.size()==0){
-                deck.changeDeck(discard);
+            if (deck.size() == 0) {
+                deck.addDeck(discard);
             }
             activeHand.draw(deck.deal());
         } else {
             Card card = activeHand.takeCard(choice - 1);
             if (card.rank.equals("7")) {
-                activeCard = new Card("7",
+                discard.add(new Card("7",
                         Card.suits.get(
-                                Console.getInt(1, 4, "Select suit 1-4 " + Card.suits, "Invalid Selection") - 1));
+                                Console.getInt(1, 4, "Select suit 1-4 " + Card.suits, "Invalid Selection") - 1)));
             } else {
-                activeCard = card;
+                discard.add(card);
             }
         }
         return activeHand.getHandValue() != 0;
