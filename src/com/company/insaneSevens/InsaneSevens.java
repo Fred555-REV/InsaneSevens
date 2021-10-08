@@ -73,7 +73,9 @@ public class InsaneSevens {
         int choice = activeHand.getSelection(discard.get(discard.size() - 1));
         if (choice == 0) {
             if (deck.size() == 0) {
+                Card activeCard = discard.remove(discard.size()-1);
                 deck.addDeck(discard);
+                discard.add(activeCard);
             }
             activeHand.draw(deck.deal());
         } else {
