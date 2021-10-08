@@ -81,7 +81,9 @@ public class Uno {
             System.out.printf("Color is %s%s%s\n", Color.getColor(activeCard.color), color, Color.RESET);
         }
         int choice = 0;
-        if (!activeCard.rank.equals("+4") || cardsToDraw == 1) {
+        if (activeCard.rank.equals("+2") && cardsToDraw == 1) {
+            choice = activeHand.getSelection(new UnoCard("2+", "Wild"), color);
+        } else if (!activeCard.rank.equals("+4") || cardsToDraw == 1) {
             choice = activeHand.getSelection(activeCard, color);
         }
         if (choice == 0) {
@@ -104,6 +106,7 @@ public class Uno {
             passTurn();
         } else if (card.rank.equals("Re")) {
             isReversed = !isReversed;
+            passTurn();
             color = card.color;
         } else if (card.rank.equals("Sk")) {
             passTurn();
@@ -140,13 +143,13 @@ public class Uno {
 
     private void passTurn() {
         if (isReversed) {
-            turnCounter--;
-            if (turnCounter == -1) {
+//            turnCounter--;
+            if (--turnCounter == -1) {
                 turnCounter = hands.size() - 1;
             }
         } else {
-            turnCounter++;
-            if (turnCounter == hands.size()) {
+//            turnCounter++;
+            if (++turnCounter == hands.size()) {
                 turnCounter = 0;
             }
         }

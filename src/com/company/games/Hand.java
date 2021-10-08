@@ -68,7 +68,7 @@ public class Hand {
     }
 
     private boolean validateCard(String color, String rank, Card card) {
-        if (rank.equals("+2") && card.rank.equals("+2")) {
+        if (card.rank.equals("+2") && rank.equals("+2") || rank.equals("2+")) {
             return true;
         }
         if (rank.equals("+2")) {
