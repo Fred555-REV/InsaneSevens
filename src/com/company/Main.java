@@ -1,13 +1,14 @@
 package com.company;
 
 import com.company.games.insaneSevens.InsaneSevens;
+import com.company.games.uno.Uno;
 
 public class Main {
 
     public static void main(String[] args) {
         // write your code here
-        InsaneSevens insaneSevens = new InsaneSevens();
-        insaneSevens.playGame();
+        Uno uno = new Uno();
+        uno.playGame();
     }
 }
 // Notes/Plan of Attack

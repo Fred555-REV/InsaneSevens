@@ -25,7 +25,7 @@ public abstract class Card {
     protected abstract String getColor(String suit);
 
     public String toString() {
-        return String.format("%s%s of %s%s\t",
+        return String.format(" %s%s of %s%s ",
                 Color.getColor(color), rank, suit, Color.RESET);
     }
 }

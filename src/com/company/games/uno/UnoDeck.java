@@ -5,10 +5,11 @@ import com.company.decks.DeckI;
 import com.company.games.insaneSevens.Card52;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UnoDeck implements DeckI {
-    List<UnoCard> cards = new ArrayList<>();
+    List<Card> cards = new ArrayList<>();
 
     public UnoDeck() {
         addCards();
@@ -26,6 +27,13 @@ public class UnoDeck implements DeckI {
                         cards.add(new UnoCard(rank, suit));
                     }
                     break;
+                case "Wi":
+                case "+4":
+                    for (int i = 0; i < 2; i++) {
+                        //2 of each wild
+                        cards.add(new UnoCard(rank, "Wild"));
+                    }
+                    break;
                 default:
                     for (int i = 0; i < 2; i++) {
                         for (String suit : UnoCard.suits) {
@@ -33,8 +41,6 @@ public class UnoDeck implements DeckI {
                             //2 for each color
                             cards.add(new UnoCard(rank, suit));
                         }
-                        //2 of each wild
-                        cards.add(new UnoCard(rank, "Wild"));
                     }
             }
         }
@@ -42,21 +48,21 @@ public class UnoDeck implements DeckI {
 
     @Override
     public Card deal() {
-        return null;
+        return cards.remove(cards.size() - 1);
     }
 
     @Override
     public int size() {
-        return 0;
+        return cards.size();
     }
 
     @Override
     public void addDeck(List<Card> discard) {
-
+        cards.addAll(discard);
     }
 
     @Override
     public void shuffle() {
-
+        Collections.shuffle(cards);
     }
 }

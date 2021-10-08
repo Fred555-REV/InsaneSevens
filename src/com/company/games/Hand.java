@@ -35,7 +35,7 @@ public class Hand {
             if (selection == 0) {
                 break;
             }
-            if(cards.get(selection - 1).rank.equals("7")){
+            if (cards.get(selection - 1).rank.equals("7")) {
                 break;
             }
             if (cards.get(selection - 1).suit.equals(activeCard.suit) || cards.get(selection - 1).rank.equals(activeCard.rank)) {
@@ -44,6 +44,41 @@ public class Hand {
         } while (true);
 
         return selection;
+    }
+
+    public int getSelection(Card activeCard, String color) {
+        int selection = -1;
+
+        do {
+            if (selection != -1) {
+                System.out.println("Invalid Card");
+            }
+            selection = player.getSelection(color, activeCard.rank, cards.size());
+            if (selection == 0) {
+                break;
+            }
+            Card card = cards.get(selection - 1);
+            if (validateCard(activeCard, card)) {
+                break;
+            }
+
+        } while (true);
+
+        return selection;
+    }
+
+    private boolean validateCard(Card activeCard, Card card) {
+        if (activeCard.rank.equals("+2") && card.rank.equals("+2")) {
+            return true;
+        }
+        if (activeCard.rank.equals("+2")) {
+            System.out.println("Select a +2 or draw");
+            return false;
+        }
+        if (card.suit.equals("Wild")) {
+            return true;
+        }
+        return card.suit.equals(activeCard.suit) || card.rank.equals(activeCard.rank);
     }
 
     public void draw(Card card) {
@@ -66,7 +101,7 @@ public class Hand {
         StringBuilder output = new StringBuilder();
         output.append(Color.getColor(player)).append(player.getName()).append("\n");
         for (Card card : cards) {
-            output.append(card).append(" | ");
+            output.append(card).append("|");
         }
         output.append("\n");
         output.append(Color.RESET);
