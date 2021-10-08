@@ -8,6 +8,7 @@ public interface DeckI {
 
     Card deal();
     int size();
+    void addCards();
     void addDeck(List<Card> discard);
     void shuffle();
 }

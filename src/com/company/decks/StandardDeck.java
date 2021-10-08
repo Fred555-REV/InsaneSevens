@@ -13,7 +13,8 @@ public class StandardDeck implements DeckI {
         addCards();
     }
 
-    private void addCards() {
+    @Override
+    public void addCards() {
         for (String suit : Card52.suits) {
             for (String rank : Card52.ranks) {
                 card52s.add(new Card52(rank, suit));
@@ -27,7 +28,7 @@ public class StandardDeck implements DeckI {
     }
 
     @Override
-    public void addDeck(List<Card> discard){
+    public void addDeck(List<Card> discard) {
         card52s.addAll(discard);
         discard.clear();
     }

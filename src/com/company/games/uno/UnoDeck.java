@@ -15,7 +15,8 @@ public class UnoDeck implements DeckI {
         addCards();
     }
 
-    private void addCards() {
+    @Override
+    public void addCards() {
         for (String rank : UnoCard.ranks) {
             switch (rank) {
                 case "0":
