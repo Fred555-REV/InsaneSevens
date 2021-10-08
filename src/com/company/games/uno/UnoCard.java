@@ -34,7 +34,7 @@ public class UnoCard extends Card {
 
     @Override
     protected int getValue(String rank) {
-        return 0;
+        return 1;
     }
 
     @Override

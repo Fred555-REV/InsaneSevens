@@ -58,7 +58,7 @@ public class Hand {
                 break;
             }
             Card card = cards.get(selection - 1);
-            if (validateCard(activeCard, card)) {
+            if (validateCard(color, activeCard.rank, card)) {
                 break;
             }
 
@@ -67,18 +67,18 @@ public class Hand {
         return selection;
     }
 
-    private boolean validateCard(Card activeCard, Card card) {
-        if (activeCard.rank.equals("+2") && card.rank.equals("+2")) {
+    private boolean validateCard(String color, String rank, Card card) {
+        if (rank.equals("+2") && card.rank.equals("+2")) {
             return true;
         }
-        if (activeCard.rank.equals("+2")) {
+        if (rank.equals("+2")) {
             System.out.println("Select a +2 or draw");
             return false;
         }
         if (card.suit.equals("Wild")) {
             return true;
         }
-        return card.suit.equals(activeCard.suit) || card.rank.equals(activeCard.rank);
+        return card.suit.equals(color) || card.rank.equals(rank);
     }
 
     public void draw(Card card) {

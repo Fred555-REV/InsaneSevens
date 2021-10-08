@@ -57,7 +57,8 @@ public class Uno {
             deck.addDeck(discard);
             discard.add(deck.deal());
             deck.shuffle();
-        } while (discard.get(0).rank.equals("8"));
+        } while (discard.get(0).suit.equals("Wild"));
+        color = discard.get(0).suit;
         deal();
         while (turn(activeHand())) ;
         endRound();
@@ -74,17 +75,17 @@ public class Uno {
 
     private boolean turn(Hand activeHand) {
         activeHand.displayHand();
-        Card activeCard = discard.remove(discard.size() - 1);
+        Card activeCard = discard.get(discard.size() - 1);
         System.out.printf("Active Card is %s\n", activeCard);
         if (activeCard.suit.equals("Wild")) {
-            System.out.printf("Color is %s%s%s\n", Color.getColor(activeCard.color), activeCard.color, Color.RESET);
+            System.out.printf("Color is %s%s%s\n", Color.getColor(activeCard.color), color, Color.RESET);
         }
         int choice = 0;
         if (!activeCard.rank.equals("+4") || cardsToDraw == 1) {
             choice = activeHand.getSelection(activeCard, color);
         }
         if (choice == 0) {
-            draw(activeCard);
+            draw();
         } else {
             playCard(activeHand, choice);
         }
@@ -116,16 +117,17 @@ public class Uno {
             passTurn();
             color = card.color;
         } else {
-            discard.add(card);
             passTurn();
             color = card.color;
         }
+        discard.add(card);
     }
 
-    private void draw(Card activeCard) {
+    private void draw() {
         System.out.println("Drawing " + cardsToDraw);
         for (int i = 0; i < cardsToDraw; i++) {
             if (deck.size() == 0) {
+                Card activeCard = discard.remove(discard.size() - 1);
                 Collections.shuffle(discard);
                 deck.addDeck(discard);
                 discard.add(activeCard);
