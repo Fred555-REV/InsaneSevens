@@ -123,7 +123,6 @@ public class Uno {
             //go Forward 0
             reverse();
             System.out.printf("%s draws 6\n", activeHand().getName());
-            activeHand().displayHand();
             cardsToDraw = 6;
             return false;
         }
