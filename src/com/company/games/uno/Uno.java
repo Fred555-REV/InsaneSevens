@@ -85,7 +85,8 @@ public class Uno {
         if (choice == 0) {
             draw();
         } else {
-            playCard(activeHand, choice);
+            Card card = activeHand.takeCard(choice - 1);
+            playCard(card);
         }
         return activeHand.getHandValue() != 0;
 
@@ -133,9 +134,9 @@ public class Uno {
         }
     }
 
-    private void playCard(Hand activeHand, int choice) {
+    private void playCard(Card card) {
         previousColor = color;
-        Card card = activeHand.takeCard(choice - 1);
+
         if (card.suit.equals("Wild")) {
             if (card.rank.equals("+4")) {
                 cardsToDraw = 4;
@@ -171,6 +172,7 @@ public class Uno {
 
     private void draw() {
         System.out.println("Drawing " + cardsToDraw);
+        boolean canPlay = cardsToDraw == 1;
         for (int i = 0; i < cardsToDraw; i++) {
             if (deck.size() == 0) {
                 Card activeCard = discard.remove(discard.size() - 1);
@@ -178,7 +180,19 @@ public class Uno {
                 deck.addDeck(discard);
                 discard.add(activeCard);
             }
-            activeHand().draw(deck.deal());
+            Card card = deck.deal();
+            if (canPlay &&
+                    card.rank.equals(discard.get(discard.size() - 1).rank) ||
+                    card.suit.equals(color)) {
+                System.out.println("Drew " + card);
+                if (Console.getInt(1, 2, "(1) Play? (2) Keep?", "Invalid Input") == 1) {
+                    playCard(card);
+                } else {
+                    activeHand().draw(card);
+                }
+            } else {
+                activeHand().draw(card);
+            }
         }
         cardsToDraw = 1;
         passTurn();
