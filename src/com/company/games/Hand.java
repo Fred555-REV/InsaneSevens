@@ -24,6 +24,10 @@ public class Hand {
         return handValue;
     }
 
+    public boolean hasPlayableCard(){
+
+    }
+
     public int getSelection(Card activeCard) {
         int selection = -1;
 

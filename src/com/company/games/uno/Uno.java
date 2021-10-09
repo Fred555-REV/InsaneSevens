@@ -85,6 +85,12 @@ public class Uno {
             choice = activeHand.getSelection(new UnoCard("2+", "Wild"), color);
         } else if (!activeCard.rank.equals("+4") || cardsToDraw == 1) {
             choice = activeHand.getSelection(activeCard, color);
+        } else {
+            if (Console.getInt(1, 2, "Challenge? (1) Y | (2) N", "Just pick one...") == 1) {
+                if (challenge(activeCard)) {
+                    choice = activeHand.getSelection(activeCard, color);
+                }
+            }
         }
         if (choice == 0) {
             draw();
@@ -93,6 +99,34 @@ public class Uno {
         }
         return activeHand.getHandValue() != 0;
 
+    }
+
+    private boolean challenge(Card activeCard) {
+        //Goes to previous player
+        //Go back -1
+        reverse();
+        Hand previousHand = activeHand();
+
+        //Checks if previous player had playable card
+        //The placements of reverse has to change depending on who has to draw
+        if (previousHand.hasPlayableCard()) {
+            //display outcome and then changes turn back to the current player
+            System.out.printf("%s did have a playable card, they draw 4\n", previousHand.getName());
+            cardsToDraw = 4;
+            draw();
+            //go Forward 0
+            reverse();
+            return true;
+        } else {
+            //display outcome and then changes turn back to the current player
+            System.out.printf("%s did not have a playable card, ", previousHand.getName());
+            //go Forward 0
+            reverse();
+            System.out.printf("%s draws 6\n", activeHand().getName());
+            activeHand().displayHand();
+            cardsToDraw = 6;
+            return false;
+        }
     }
 
     private void playCard(Hand activeHand, int choice) {
@@ -105,8 +139,7 @@ public class Uno {
             color = UnoCard.suits.get(Console.getInt(1, 4, "Select color 1-4 " + UnoCard.suits, "Invalid Selection") - 1);
             passTurn();
         } else if (card.rank.equals("Re")) {
-            isReversed = !isReversed;
-            passTurn();
+            reverse();
             color = card.color;
         } else if (card.rank.equals("Sk")) {
             passTurn();
@@ -124,6 +157,11 @@ public class Uno {
             color = card.color;
         }
         discard.add(card);
+    }
+
+    private void reverse() {
+        isReversed = !isReversed;
+        passTurn();
     }
 
     private void draw() {
