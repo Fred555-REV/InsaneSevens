@@ -81,17 +81,7 @@ public class Uno {
             System.out.printf("Color is %s%s%s\n", Color.getColor(activeCard.color), color, Color.RESET);
         }
         int choice = 0;
-        if (activeCard.rank.equals("+2") && cardsToDraw == 1) {
-            choice = activeHand.getSelection(new UnoCard("2+", "Wild"), color);
-        } else if (!activeCard.rank.equals("+4") || cardsToDraw == 1) {
-            choice = activeHand.getSelection(activeCard, color);
-        } else {
-            if (Console.getInt(1, 2, "Challenge? (1) Y | (2) N", "Just pick one...") == 1) {
-                if (challenge(activeCard)) {
-                    choice = activeHand.getSelection(activeCard, color);
-                }
-            }
-        }
+        choice = getChoice(activeHand, activeCard);
         if (choice == 0) {
             draw();
         } else {
@@ -99,6 +89,20 @@ public class Uno {
         }
         return activeHand.getHandValue() != 0;
 
+    }
+
+    private int getChoice(Hand activeHand, Card activeCard) {
+        if (activeCard.rank.equals("+2") && cardsToDraw == 1) {
+            return activeHand.getSelection(new UnoCard("2+", "Wild"), color);
+        } else if (!activeCard.rank.equals("+4") || cardsToDraw == 1) {
+            return activeHand.getSelection(activeCard, color);
+        } else {
+            if (Console.getInt(1, 2, "Challenge? (1) Y | (2) N", "Just pick one...") == 1) {
+                if (challenge(activeCard)) {
+                    return activeHand.getSelection(activeCard, color);
+                }
+            }
+        }
     }
 
     private boolean challenge(Card activeCard) {
