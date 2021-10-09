@@ -19,6 +19,7 @@ public class Uno {
     DeckI deck;
     List<Card> discard = new ArrayList<>();
     String color;
+    String previousColor;
     int turnCounter;
     boolean isReversed = false;
     int cardsToDraw = 1;
@@ -97,7 +98,7 @@ public class Uno {
             return activeHand.getSelection(activeCard, color);
         } else {
             if (Console.getInt(1, 2, "Challenge? (1) Y | (2) N", "Just pick one...") == 1) {
-                if (challenge(activeCard)) {
+                if (challenge()) {
                     return activeHand.getSelection(activeCard, color);
                 }
             }
@@ -105,7 +106,7 @@ public class Uno {
         return 0;
     }
 
-    private boolean challenge(Card activeCard) {
+    private boolean challenge() {
         //Goes to previous player
         //Go back -1
         reverse();
@@ -113,7 +114,7 @@ public class Uno {
 
         //Checks if previous player had playable card
         //The placements of reverse has to change depending on who has to draw
-        if (previousHand.hasPlayableCard(activeCard, color)) {
+        if (previousHand.hasPlayableCard(discard.get(discard.size() - 2), previousColor)) {
             //display outcome and then changes turn back to the current player
             System.out.printf("%s did have a playable card, they draw 4\n", previousHand.getName());
             cardsToDraw = 4;
@@ -133,6 +134,7 @@ public class Uno {
     }
 
     private void playCard(Hand activeHand, int choice) {
+        previousColor = color;
         Card card = activeHand.takeCard(choice - 1);
         if (card.suit.equals("Wild")) {
             if (card.rank.equals("+4")) {
