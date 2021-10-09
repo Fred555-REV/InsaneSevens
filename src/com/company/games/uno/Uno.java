@@ -80,8 +80,7 @@ public class Uno {
         if (activeCard.suit.equals("Wild")) {
             System.out.printf("Color is %s%s%s\n", Color.getColor(activeCard.color), color, Color.RESET);
         }
-        int choice = 0;
-        choice = getChoice(activeHand, activeCard);
+        int choice = getChoice(activeHand, activeCard);
         if (choice == 0) {
             draw();
         } else {
@@ -103,6 +102,7 @@ public class Uno {
                 }
             }
         }
+        return 0;
     }
 
     private boolean challenge(Card activeCard) {
@@ -113,7 +113,7 @@ public class Uno {
 
         //Checks if previous player had playable card
         //The placements of reverse has to change depending on who has to draw
-        if (previousHand.hasPlayableCard()) {
+        if (previousHand.hasPlayableCard(activeCard, color)) {
             //display outcome and then changes turn back to the current player
             System.out.printf("%s did have a playable card, they draw 4\n", previousHand.getName());
             cardsToDraw = 4;

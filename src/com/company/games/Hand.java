@@ -24,8 +24,13 @@ public class Hand {
         return handValue;
     }
 
-    public boolean hasPlayableCard(){
-
+    public boolean hasPlayableCard(Card activeCard, String color) {
+        for (Card card : cards) {
+            if (validateCard(activeCard.color, activeCard.rank, card)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getSelection(Card activeCard) {
