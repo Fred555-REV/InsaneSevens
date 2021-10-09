@@ -26,7 +26,7 @@ public class Hand {
 
     public boolean hasPlayableCard(Card activeCard, String color) {
         for (Card card : cards) {
-            if (validateCard(activeCard.color, activeCard.rank, card)) {
+            if (validateCard(color, activeCard.rank, card)) {
                 return true;
             }
         }

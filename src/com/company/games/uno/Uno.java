@@ -85,6 +85,7 @@ public class Uno {
         if (choice == 0) {
             draw();
         } else {
+            previousColor = color;
             Card card = activeHand.takeCard(choice - 1);
             playCard(card);
         }
@@ -109,7 +110,9 @@ public class Uno {
 
     private boolean challenge() {
         //Goes to previous player
-        //Go back -1
+        // -1 0 1
+        //  X
+        //Go back previous
         reverse();
         Hand previousHand = activeHand();
 
@@ -120,13 +123,17 @@ public class Uno {
             System.out.printf("%s did have a playable card, they draw 4\n", previousHand.getName());
             cardsToDraw = 4;
             draw();
-            //go Forward 0
+            //go Forward current
+            // -1 0 1
+            //    X
             reverse();
             return true;
         } else {
             //display outcome and then changes turn back to the current player
             System.out.printf("%s did not have a playable card, ", previousHand.getName());
-            //go Forward 0
+            //go Forward current
+            // -1 0 1
+            //    X
             reverse();
             System.out.printf("%s draws 6\n", activeHand().getName());
             cardsToDraw = 6;
@@ -134,9 +141,12 @@ public class Uno {
         }
     }
 
-    private void playCard(Card card) {
-        previousColor = color;
+    private void reverse() {
+        isReversed = !isReversed;
+        passTurn();
+    }
 
+    private void playCard(Card card) {
         if (card.suit.equals("Wild")) {
             if (card.rank.equals("+4")) {
                 cardsToDraw = 4;
@@ -165,14 +175,8 @@ public class Uno {
         discard.add(card);
     }
 
-    private void reverse() {
-        isReversed = !isReversed;
-        passTurn();
-    }
-
     private void draw() {
         System.out.println("Drawing " + cardsToDraw);
-        boolean canPlay = cardsToDraw == 1;
         for (int i = 0; i < cardsToDraw; i++) {
             if (deck.size() == 0) {
                 Card activeCard = discard.remove(discard.size() - 1);
@@ -181,21 +185,29 @@ public class Uno {
                 discard.add(activeCard);
             }
             Card card = deck.deal();
-            if (canPlay &&
-                    card.rank.equals(discard.get(discard.size() - 1).rank) ||
-                    card.suit.equals(color)) {
-                System.out.println("Drew " + card);
-                if (Console.getInt(1, 2, "(1) Play? (2) Keep?", "Invalid Input") == 1) {
-                    playCard(card);
-                } else {
-                    activeHand().draw(card);
+            if (cardsToDraw == 1) {
+
+                if (card.rank.equals(discard.get(discard.size() - 1).rank)
+                        || card.suit.equals(color)) {
+                    System.out.println("Drew " + card);
+
+                    if (Console.getInt(1, 2, "(1) Play? (2) Keep?", "Invalid Input") == 1) {
+                        playCard(card);
+                    } else {
+                        activeHand().draw(card);
+                    }
+
                 }
+
             } else {
                 activeHand().draw(card);
             }
         }
+
         cardsToDraw = 1;
+
         passTurn();
+
     }
 
     private void passTurn() {
