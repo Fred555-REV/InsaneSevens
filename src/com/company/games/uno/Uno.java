@@ -84,6 +84,7 @@ public class Uno {
         int choice = getChoice(activeHand, activeCard);
         if (choice == 0) {
             draw();
+            passTurn();
         } else {
             previousColor = color;
             Card card = activeHand.takeCard(choice - 1);
@@ -156,21 +157,21 @@ public class Uno {
             passTurn();
         } else if (card.rank.equals("Re")) {
             reverse();
-            color = card.color;
+            color = card.suit;
         } else if (card.rank.equals("Sk")) {
             passTurn();
             passTurn();
-            color = card.color;
+            color = card.suit;
         } else if (card.rank.equals("+2")) {
             if (cardsToDraw == 1) {
                 cardsToDraw = 0;
             }
             cardsToDraw += 2;
             passTurn();
-            color = card.color;
+            color = card.suit;
         } else {
             passTurn();
-            color = card.color;
+            color = card.suit;
         }
         discard.add(card);
     }
@@ -205,9 +206,6 @@ public class Uno {
         }
 
         cardsToDraw = 1;
-
-        passTurn();
-
     }
 
     private void passTurn() {
@@ -228,12 +226,12 @@ public class Uno {
         Hand winner = null;
         for (Hand hand : hands) {
             hand.displayHand();
+            hand.clear();
             if (hand.getHandValue() == 0) {
                 winner = hand;
                 winner.win(1);
                 break;
             }
-            hand.clear();
         }
         assert winner != null;
         System.out.printf("The round winner is: %s\tTotal wins: %s\n",
