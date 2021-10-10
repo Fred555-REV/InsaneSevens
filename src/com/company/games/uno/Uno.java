@@ -55,11 +55,11 @@ public class Uno {
 
     private boolean round() {
         do {
-            deck.addDeck(discard);
-            discard.add(deck.deal());
+            deck = new UnoDeck();
             deck.shuffle();
-        } while (discard.get(0).suit.equals("Wild"));
-        color = discard.get(0).suit;
+            discard.add(deck.deal());
+        } while (discard.get(discard.size() - 1).suit.equals("Wild"));
+        color = discard.get(discard.size() - 1).suit;
         deal();
         while (turn(activeHand())) ;
         endRound();
@@ -69,6 +69,7 @@ public class Uno {
 
     private void deal() {
         System.out.println("Dealing...");
+        hands.forEach(Hand::clear);
         for (int i = 0; i < 7; i++) {
             hands.forEach(hand -> hand.draw(deck.deal()));
         }
@@ -226,7 +227,6 @@ public class Uno {
         Hand winner = null;
         for (Hand hand : hands) {
             hand.displayHand();
-            hand.clear();
             if (hand.getHandValue() == 0) {
                 winner = hand;
                 winner.win(1);
