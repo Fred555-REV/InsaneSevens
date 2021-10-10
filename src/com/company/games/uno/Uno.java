@@ -85,7 +85,6 @@ public class Uno {
         int choice = getChoice(activeHand, activeCard);
         if (choice == 0) {
             draw();
-            passTurn();
         } else {
             previousColor = color;
             Card card = activeHand.takeCard(choice - 1);
@@ -103,6 +102,7 @@ public class Uno {
         } else {
             if (Console.getInt(1, 2, "Challenge? (1) Y | (2) N", "Just pick one...") == 1) {
                 if (challenge()) {
+                    activeHand.displayHand();
                     return activeHand.getSelection(activeCard, color);
                 }
             }
@@ -197,12 +197,14 @@ public class Uno {
                         playCard(card);
                     } else {
                         activeHand().draw(card);
+                        passTurn();
                     }
 
                 }
 
             } else {
                 activeHand().draw(card);
+                passTurn();
             }
         }
 
@@ -211,13 +213,13 @@ public class Uno {
 
     private void passTurn() {
         if (isReversed) {
-//            turnCounter--;
-            if (--turnCounter == -1) {
+            turnCounter--;
+            if (turnCounter == -1) {
                 turnCounter = hands.size() - 1;
             }
         } else {
-//            turnCounter++;
-            if (++turnCounter == hands.size()) {
+            turnCounter++;
+            if (turnCounter == hands.size()) {
                 turnCounter = 0;
             }
         }
