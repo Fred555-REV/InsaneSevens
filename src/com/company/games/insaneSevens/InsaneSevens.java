@@ -14,7 +14,6 @@ public class InsaneSevens {
     List<Hand> hands = new ArrayList<>();
     DeckI deck;
     List<Card> discard = new ArrayList<>();
-    Card activeCard;
     int turnCounter;
 
     public InsaneSevens() {
